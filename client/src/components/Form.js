@@ -16,11 +16,11 @@ export default function Form() {
   // get user input from form (3)
   // getting event argument
   const changeHandler = (e) => {
-    // destuctute the fields and value
-    const { fname, value } = e.target;
+    // destuctute the fields and value for input attributes
+    const { name, value } = e.target;
     // spreading the form object, then by wrapping first inside [],
     // it will grab all of the other properties inside the form object
-    setForm({ ...form, [fname]: value });
+    setForm({ ...form, [name]: value });
     console.log(value);
   };
 
@@ -34,8 +34,8 @@ export default function Form() {
       .post(url, form)
       .then((res) => console.log(res))
       .catch((err) => console.error(err));
-    // // clear from after submit
-    // setForm(initialState);
+    // clear from after submit
+    setForm(initialState);
   };
 
   return (
@@ -46,20 +46,23 @@ export default function Form() {
             <input
               type="text"
               name="fname"
-              id="contacts"
+              id="fname"
               className="form-control"
               placeholder="First Name"
               onChange={changeHandler}
-            />
+              value={form.fname}
+              />
+              
           </div>
           <div className="col-sm-6">
             <input
               type="text"
               name="lname"
-              id="contacts"
+              id="lname"
               className="form-control"
               placeholder="Last Name"
               onChange={changeHandler}
+              value={form.lname}
             />
           </div>
         </div>
@@ -68,20 +71,22 @@ export default function Form() {
             <input
               type="email"
               name="email"
-              id="contacts"
+              id="email"
               className="form-control"
               placeholder="Email"
               onChange={changeHandler}
+              value={form.email}
             />
           </div>
           <div className="col-sm-6">
             <input
               type="text"
               name="phone"
-              id="contacts"
+              id="phone"
               className="form-control"
               placeholder="Phone Number"
               onChange={changeHandler}
+              value={form.phone}
             />
           </div>
         </div>
@@ -90,10 +95,11 @@ export default function Form() {
             <input
               type="text"
               name="company"
-              id="contacts"
+              id="company"
               className="form-control"
               placeholder="Company"
               onChange={changeHandler}
+              value={form.company}
             />
           </div>
           <div className="col-sm">
