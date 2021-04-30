@@ -11,26 +11,30 @@ app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 
-// Connection
+// ROUTES//
+// get all contacts
+app.get("/", async (req, res) => {
+  try {
+    let contacts = await pool.query("SELECT * FROM person");
+    res.json(contacts);
+  } catch (error) {
+    console.error(err.message);
+  }
+});
 
-// Route
 // app.post("/contacts", async(req, res) => {
 //   try {
 //     const { fname, lname, email, phone, company } = req.body;
-//     const newContact = await pool.query("INSERT INTO contacts(fname, lname, email, phone, company) VALUES($1,$2,$3,$4,$5);",
+//     const newContact = await pool.query("INSERT INTO person(fname, lname, email, phone, company) VALUES($1,$2,$3,$4,$5);",
 //       [fname, lname, email, phone, company]
 //     );
 //     console.log(req.body);
-  
+
 //   } catch (error) {
 //     console.error(err.message);
 //   }
-  
-// });
 
-app.get("/", (req, res) => {
-  res.send({ message: "hello" });
-});
+// });
 
 // listener
 app.listen(port, () => console.log(`Running on port: ${port}`));
