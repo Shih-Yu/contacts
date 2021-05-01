@@ -4,8 +4,8 @@ import axios from "axios";
 export default function Form() {
   // set blank form (1)
   const initialState = {
-    fname: "",
-    lname: "",
+    first_name: "",
+    last_name: "",
     email: "",
     phone: "",
     company: "",
@@ -45,24 +45,23 @@ export default function Form() {
           <div className="col-sm-6">
             <input
               type="text"
-              name="fname"
-              id="fname"
+              name="first_name"
+              id="first_name"
               className="form-control"
               placeholder="First Name"
               onChange={changeHandler}
-              value={form.fname}
-              />
-              
+              value={form.first_name}
+            />
           </div>
           <div className="col-sm-6">
             <input
               type="text"
-              name="lname"
-              id="lname"
+              name="last_name"
+              id="last_name"
               className="form-control"
               placeholder="Last Name"
               onChange={changeHandler}
-              value={form.lname}
+              value={form.last_name}
             />
           </div>
         </div>
