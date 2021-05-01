@@ -12,29 +12,34 @@ app.use(logger("dev"));
 app.use(express.json());
 
 // ROUTES//
-// get all contacts
-app.get("/", async (req, res) => {
+// Read all existing contacts
+app.get("/contacts", async (req, res) => {
   try {
-    let contacts = await pool.query("SELECT * FROM person");
-    res.json(contacts);
+    // store data from query into allContacts variable
+    let allContacts = await pool.query("SELECT * FROM person");
+    // convert the data into JSON format
+    res.json(allContacts);
+    console.log(allContacts);
   } catch (error) {
-    console.error(err.message);
+    console.error(error.message);
   }
 });
 
-// app.post("/contacts", async(req, res) => {
-//   try {
-//     const { fname, lname, email, phone, company } = req.body;
-//     const newContact = await pool.query("INSERT INTO person(fname, lname, email, phone, company) VALUES($1,$2,$3,$4,$5);",
-//       [fname, lname, email, phone, company]
-//     );
-//     console.log(req.body);
+// Create new contacts
+app.post("/contacts", async(req, res) => {
+  try {
+    // destructure the data recieved from the body
+    const { first_name, last_name, email, phone, company } = req.body;
+    const newContact = await pool.query("INSERT INTO person(first_name, last_name, email, phone, company) VALUES($1,$2,$3,$4,$5) RETURNING *;",
+      [first_name, last_name, email, phone, company]
+    );
+    res.json(newContact);
+    console.log(req.body);
+  } catch (error) {
+    console.error(error.message);
+  }
 
-//   } catch (error) {
-//     console.error(err.message);
-//   }
-
-// });
+});
 
 // listener
 app.listen(port, () => console.log(`Running on port: ${port}`));
